@@ -1,0 +1,2294 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ru" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>lab_4 - Saunin Anton</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "lab_4";
+        var mkdocs_page_input_path = "lab_4.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/rust.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Saunin Anton
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Поиск в документации" aria-label="Поиск в документации" title="Введите поисковый запрос" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Навигационное меню">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../lab_3/">lab_3</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">lab_4</a>
+    <ul class="current">
+    </ul>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Мобильная версия навигации">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Saunin Anton</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Документация"></a></li>
+      <li class="breadcrumb-item active">lab_4</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="4">Лабораторная 4</h1>
+<hr />
+<p><br></p>
+<p><strong>Цель:</strong> Реализация клиентской части приложения средствами vue.js
+<br></p>
+<h1 id="_1">Роутер</h1>
+<p><br></p>
+<h3 id="vuerouter">Для реализации маршрутизации использован <strong>VueRouter</strong></h3>
+<p><br/></p>
+<h3 id="routerjs">router.js</h3>
+<pre><code>import { createRouter, createWebHistory } from &quot;vue-router&quot;;
+import Login from &quot;@/components/LoginPage.vue&quot;;
+import RegisterPage from &quot;@/components/RegisterPage.vue&quot;;
+import AddRoom from &quot;@/components/Room/AddRoom.vue&quot;;
+import RoomList from &quot;@/components/Room/RoomList.vue&quot;;
+import RoomPage from &quot;@/components/Room/RoomPage.vue&quot;;
+import AddTeacher from &quot;@/components/Teacher/AddTeacher.vue&quot;;
+import TeacherList from &quot;@/components/Teacher/TeacherList.vue&quot;;
+import TeacherPage from &quot;@/components/Teacher/TeacherPage.vue&quot;;
+import AddTeacherLesson from &quot;@/components/TeacherLesson/AddTeacherLesson.vue&quot;;
+import TeacherLessonList from &quot;@/components/TeacherLesson/TeacherLessonList.vue&quot;;
+import TeacherLessonPage from &quot;@/components/TeacherLesson/TeacherLessonPage.vue&quot;;
+import AddLesson from &quot;@/components/Lesson/AddLesson.vue&quot;;
+import LessonList from &quot;@/components/Lesson/LessonList.vue&quot;;
+import LessonPage from &quot;@/components/Lesson/LessonPage.vue&quot;;
+import AddClass from &quot;@/components/Class/AddClass.vue&quot;;
+import ClassList from &quot;@/components/Class/ClassList.vue&quot;;
+import ClassPage from &quot;@/components/Class/ClassPage.vue&quot;;
+import ClassStudentsPage from &quot;@/components/Class/ClassStudentsPage.vue&quot;;
+import StudentPage from &quot;@/components/Students/StudentPage.vue&quot;;
+import AddStudent from &quot;@/components/Students/AddStudent.vue&quot;;
+import ScheduleList from &quot;@/components/Schedule/ScheduleList.vue&quot;;
+import AddSchedule from &quot;@/components/Schedule/AddSchedule.vue&quot;;
+import SchedulePage from &quot;@/components/Schedule/SchedulePage.vue&quot;;
+import CountTeachersPage from &quot;@/components/Lesson/CountTeachersPage.vue&quot;;
+import FindConcrete from &quot;@/components/Schedule/FindConcrete.vue&quot;;
+import AddMark from &quot;@/components/Mark/AddMark.vue&quot;;
+import ShowStatistics from &quot;@/components/Class/ShowStatistics.vue&quot;;
+import MarkList from &quot;@/components/Mark/MarkList.vue&quot;;
+import MarkPage from &quot;@/components/Mark/MarkPage.vue&quot;;
+
+const routes = [
+  { path: &quot;/login&quot;, component: Login },
+  { path: &quot;/register&quot;, component: RegisterPage },
+  { path: &quot;/add-room&quot;, component: AddRoom },
+  { path: &quot;/rooms&quot;, component: RoomList },
+  { path: &quot;/rooms/:id&quot;, component: RoomPage },
+  { path: &quot;/add-teacher&quot;, component: AddTeacher },
+  { path: &quot;/teachers&quot;, component: TeacherList },
+  { path: &quot;/teachers/:id&quot;, component: TeacherPage },
+  { path: &quot;/add-teacher-lesson&quot;, component: AddTeacherLesson },
+  { path: &quot;/teachers-lessons&quot;, component: TeacherLessonList },
+  { path: &quot;/teachers-lessons/:id&quot;, component: TeacherLessonPage },
+  { path: &quot;/add-lesson&quot;, component: AddLesson },
+  { path: &quot;/lessons&quot;, component: LessonList },
+  { path: &quot;/count-teachers&quot;, component: CountTeachersPage },
+  { path: &quot;/lessons/:id&quot;, component: LessonPage },
+  { path: &quot;/add-class&quot;, component: AddClass },
+  { path: &quot;/classes&quot;, component: ClassList },
+  { path: &quot;/classes/:id&quot;, component: ClassPage },
+  { path: &quot;/classes/:id/students&quot;, component: ClassStudentsPage },
+  { path: &quot;/add-student&quot;, component: AddStudent },
+  { path: &quot;/students/:id&quot;, component: StudentPage },
+  { path: &quot;/add-schedule&quot;, component: AddSchedule },
+  { path: &quot;/schedules/:id&quot;, component: SchedulePage },
+  { path: &quot;/schedules/:id/add-mark&quot;, component: AddMark },
+  { path: &quot;/schedules/&quot;, component: ScheduleList },
+  { path: &quot;/find-concrete&quot;, component: FindConcrete },
+  { path: &quot;/classes/:id/statistics&quot;, component: ShowStatistics },
+  { path: &quot;/marks/:id&quot;, component: MarkPage },
+  { path: &quot;/marks&quot;, component: MarkList },
+];
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
+});
+
+export default router;
+
+</code></pre>
+<p><br/></p>
+<h1 id="_2">Интерфейс</h1>
+<hr />
+<p><br/></p>
+<h3 id="-"><strong>Интерфейс</strong> - предстваляет из себя страницу, контент которой меняется роутером</h3>
+<p><br/></p>
+<p><br/></p>
+<h2 id="appvue">App.vue</h2>
+<pre><code>&lt;template&gt;
+    &lt;v-layout class=&quot;rounded rounded-md&quot;&gt;
+      &lt;v-navigation-drawer permanent&gt;
+        &lt;v-list-item title=&quot;Школьная система&quot;&gt;&lt;/v-list-item&gt;
+        &lt;v-divider&gt;&lt;/v-divider&gt;
+        &lt;template v-if=&quot;!Token.token&quot;&gt;
+        &lt;router-link to=&quot;/login&quot; style=&quot;text-decoration: none; color: inherit;&quot;&gt;&lt;v-list-item link title=&quot;Войти&quot;&gt;&lt;/v-list-item&gt;&lt;/router-link&gt;
+        &lt;router-link to=&quot;/register&quot; style=&quot;text-decoration: none; color: inherit;&quot;&gt;&lt;v-list-item link title=&quot;Зарегистрироваться&quot;&gt;&lt;/v-list-item&gt;&lt;/router-link&gt;
+        &lt;/template&gt;
+        &lt;v-list-item v-else class=&quot;text-red&quot; @click=&quot;Token.deleteToken&quot;&gt;Выйти&lt;/v-list-item&gt;
+
+        &lt;router-link to=&quot;/categories&quot; style=&quot;text-decoration: none; color: inherit;&quot;&gt;&lt;v-list-item link title=&quot;Категории&quot;&gt;&lt;/v-list-item&gt;&lt;/router-link&gt;
+        &lt;router-link to=&quot;/rooms&quot; style=&quot;text-decoration: none; color: inherit;&quot;&gt;&lt;v-list-item link title=&quot;Аудитории&quot;&gt;&lt;/v-list-item&gt;&lt;/router-link&gt;
+        &lt;router-link to=&quot;/teachers&quot; style=&quot;text-decoration: none; color: inherit;&quot;&gt;&lt;v-list-item link title=&quot;Учителя&quot;&gt;&lt;/v-list-item&gt;&lt;/router-link&gt;
+        &lt;router-link to=&quot;/teachers-lessons&quot; style=&quot;text-decoration: none; color: inherit;&quot;&gt;&lt;v-list-item link title=&quot;Назначения&quot;&gt;&lt;/v-list-item&gt;&lt;/router-link&gt;
+        &lt;router-link to=&quot;/lessons&quot; style=&quot;text-decoration: none; color: inherit;&quot;&gt;&lt;v-list-item link title=&quot;Предметы&quot;&gt;&lt;/v-list-item&gt;&lt;/router-link&gt;
+        &lt;router-link to=&quot;/classes&quot; style=&quot;text-decoration: none; color: inherit;&quot;&gt;&lt;v-list-item link title=&quot;Классы&quot;&gt;&lt;/v-list-item&gt;&lt;/router-link&gt;
+        &lt;router-link to=&quot;/schedules&quot; style=&quot;text-decoration: none; color: inherit;&quot;&gt;&lt;v-list-item link title=&quot;Расписание&quot;&gt;&lt;/v-list-item&gt;&lt;/router-link&gt;
+        &lt;router-link to=&quot;/marks&quot; style=&quot;text-decoration: none; color: inherit;&quot;&gt;&lt;v-list-item link title=&quot;Оценки&quot;&gt;&lt;/v-list-item&gt;&lt;/router-link&gt;
+
+      &lt;/v-navigation-drawer&gt;
+      &lt;v-main class=&quot;d-flex align-center justify-center&quot; style=&quot;min-height: 300px;&quot;&gt;
+       &lt;router-view/&gt;
+      &lt;/v-main&gt;
+    &lt;/v-layout&gt;
+&lt;/template&gt;
+
+&lt;script setup&gt;
+
+import {TokenStore} from &quot;@/stores/TokenStore&quot;;
+
+const Token = TokenStore()
+&lt;/script&gt;
+
+&lt;style&gt;
+&lt;/style&gt;
+
+</code></pre>
+<p><br/></p>
+<h1 id="axios">Axios</h1>
+<p><br/></p>
+<h3 id="axios-composable-instance">Стоит уточнить, что <strong>axios</strong> в данной работе используется через composable - переменную <strong>instance</strong></h3>
+<p><br/></p>
+<h2 id="axiosinstancejs">AxiosInstance.js</h2>
+<pre><code>import axios from &quot;axios&quot;;
+
+const instance = axios.create({
+    baseURL: 'http://127.0.0.1:8000/',
+});
+
+export default instance
+</code></pre>
+<h1 id="_3">Компоненты</h1>
+<hr />
+<p><br/></p>
+<h2 id="login-page">Login Page</h2>
+<pre><code>&lt;script setup&gt;
+import {ref} from &quot;vue&quot;;
+import instance from &quot;@/AxiosInstance&quot;;
+import router from &quot;@/router/router&quot;;
+import {TokenStore} from &quot;@/stores/TokenStore&quot;;
+
+const Token = TokenStore()
+
+const form = ref({
+  username: '',
+  password: ''
+})
+
+function login(){
+  instance.post('/main/login/', form.value).then(response =&gt; {
+    if (response.status === 200){
+      Token.setToken(response.data.access)
+      router.push('/rooms')
+    }
+  }
+  ).catch(error =&gt; console.log(error))
+}
+
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;v-app&gt;
+    &lt;div class=&quot;w-50 mx-auto&quot;&gt;
+      &lt;h2&gt;Вход&lt;/h2&gt;
+    &lt;v-text-field label=&quot;Логин&quot; v-model=&quot;form.username&quot;&gt;&lt;/v-text-field&gt;
+    &lt;v-text-field label=&quot;Пароль&quot; v-model=&quot;form.password&quot;&gt;&lt;/v-text-field&gt;
+    &lt;v-btn @click=&quot;login&quot;&gt;Войти&lt;/v-btn&gt;
+    &lt;/div&gt;
+  &lt;/v-app&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;
+
+&lt;/style&gt;
+
+</code></pre>
+<p><img alt="interface" src="../lab_4_imgs/login.png" />
+<br/></p>
+<h2 id="register-page">Register Page</h2>
+<pre><code>&lt;script setup&gt;
+import {ref} from &quot;vue&quot;;
+import instance from &quot;@/AxiosInstance&quot;;
+import router from &quot;@/router/router&quot;;
+
+const form = ref({
+  username: '',
+  password: '',
+  password2: ''
+})
+
+function register(){
+  instance.post('/auth/users/', form.value).then(response =&gt; {
+        if (response.status === 201){
+          router.push('/login')
+        }
+      }
+  ).catch(error =&gt; console.log(error))
+}
+
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;v-app&gt;
+    &lt;div class=&quot;w-50 mx-auto&quot;&gt;
+      &lt;h2&gt;Регистрация&lt;/h2&gt;
+      &lt;v-text-field label=&quot;Логин&quot; v-model=&quot;form.username&quot;&gt;&lt;/v-text-field&gt;
+      &lt;v-text-field label=&quot;Пароль&quot; v-model=&quot;form.password&quot;&gt;&lt;/v-text-field&gt;
+      &lt;v-text-field label=&quot;Повторите пароль&quot; v-model=&quot;form.password2&quot;&gt;&lt;/v-text-field&gt;
+      &lt;v-btn @click=&quot;register&quot;&gt;Зарегистрироваться&lt;/v-btn&gt;
+    &lt;/div&gt;
+  &lt;/v-app&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;
+
+&lt;/style&gt;
+
+</code></pre>
+<p><img alt="interface" src="../lab_4_imgs/reg.png" />
+<br/></p>
+<h2 id="lesson">Lesson</h2>
+<p><br/></p>
+<h4> Страница уроков представлена 4 компонентами, в которых в скрипте используются axios-запросы: </h4>
+<p><br/></p>
+<p><img alt="interface" src="../lab_4_imgs/lessons.jpg" /></p>
+<h3 id="lessonlist">LessonList</h3>
+<pre><code class="language-html">&lt;script setup&gt;
+import { onMounted, ref } from &quot;vue&quot;;
+import instance from &quot;@/AxiosInstance&quot;;
+import router from &quot;@/router/router&quot;;
+import { TokenStore } from &quot;@/stores/TokenStore&quot;;
+
+const Token = TokenStore();
+const lessons = ref([]);
+
+function getLessons() {
+  instance
+    .get(&quot;/main/lessons/&quot;, {
+      headers: {
+        Authorization: `Bearer ${Token.token}`,
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 200) {
+        lessons.value = response.data;
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+}
+
+function deleteLesson(id) {
+  instance
+    .delete(`/main/lessons/${id}/`, {
+      headers: {
+        Authorization: `Bearer ${Token.token}`,
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 204) {
+        getLessons();
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+}
+
+onMounted(() =&gt; {
+  getLessons();
+});
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div class=&quot;d-flex align-center flex-column ga-10&quot;&gt;
+    &lt;h2&gt;Предметы&lt;/h2&gt;
+    &lt;v-btn @click=&quot;router.push('/count-teachers')&quot;
+      &gt;Статистика по числу учителей&lt;/v-btn
+    &gt;
+    &lt;template v-for=&quot;lesson in lessons&quot; :key=&quot;lesson.id&quot;&gt;
+      &lt;v-card width=&quot;400&quot; :title=&quot;lesson.name&quot;
+        &gt;&lt;v-card-actions&gt;
+          &lt;v-btn @click=&quot;router.push('/lessons/' + lesson.name)&quot;&gt;
+            Изменить
+          &lt;/v-btn&gt;
+          &lt;v-btn @click=&quot;deleteLesson(lesson.name)&quot;&gt; Удалить &lt;/v-btn&gt;
+        &lt;/v-card-actions&gt;&lt;/v-card
+      &gt;
+    &lt;/template&gt;
+    &lt;v-btn @click=&quot;router.push('/add-lesson')&quot;&gt;Добавить&lt;/v-btn&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+
+</code></pre>
+<p><br/></p>
+<h3 id="lessonpage">LessonPage</h3>
+<pre><code class="language-html">&lt;script setup&gt;
+import { onMounted, ref } from &quot;vue&quot;;
+import instance from &quot;@/AxiosInstance&quot;;
+import router from &quot;@/router/router&quot;;
+import { TokenStore } from &quot;@/stores/TokenStore&quot;;
+
+const Token = TokenStore();
+
+const form = ref({
+  name: &quot;&quot;,
+});
+
+function getCard() {
+  instance
+    .get(`/main/lessons/${router.currentRoute.value.params.id}/`, {
+      headers: {
+        Authorization: `Bearer ${Token.token}`,
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 200) {
+        form.value = response.data;
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+}
+
+function saveCard() {
+  // const { id, ...rest } = form.value;
+  instance
+    .patch(
+      `/main/lessons/${router.currentRoute.value.params.id}/`,
+      form.value,
+      {
+        headers: {
+          Authorization: `Bearer ${Token.token}`,
+        },
+      }
+    )
+    .then((response) =&gt; {
+      if (response.status === 200) {
+        router.push(&quot;/lessons&quot;);
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+}
+
+onMounted(() =&gt; {
+  getCard();
+});
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;v-app&gt;
+    &lt;div class=&quot;w-50 mx-auto&quot;&gt;
+      &lt;h2&gt;Предмет&lt;/h2&gt;
+      &lt;v-text-field label=&quot;Имя&quot; v-model=&quot;form.name&quot;&gt;&lt;/v-text-field&gt;
+      &lt;v-btn @click=&quot;saveCard&quot;&gt;Сохранить&lt;/v-btn&gt;
+    &lt;/div&gt;
+  &lt;/v-app&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+
+
+</code></pre>
+<p><br/></p>
+<h3 id="addlesson">AddLesson</h3>
+<pre><code class="language-html">&lt;script setup&gt;
+import { ref } from &quot;vue&quot;;
+import instance from &quot;@/AxiosInstance&quot;;
+import router from &quot;@/router/router&quot;;
+import { TokenStore } from &quot;@/stores/TokenStore&quot;;
+
+const Token = TokenStore();
+
+const form = ref({
+  name: &quot;&quot;,
+});
+
+function add() {
+  instance
+    .post(&quot;/main/lessons/&quot;, form.value, {
+      headers: {
+        Authorization: `Bearer ${Token.token}`,
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 201) {
+        router.push(&quot;/lessons&quot;);
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+}
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;v-app&gt;
+    &lt;div class=&quot;w-50 mx-auto&quot;&gt;
+      &lt;h2&gt;Предмет&lt;/h2&gt;
+      &lt;v-text-field label=&quot;Название&quot; v-model=&quot;form.name&quot;&gt;&lt;/v-text-field&gt;
+      &lt;v-btn @click=&quot;add&quot;&gt;Создать&lt;/v-btn&gt;
+    &lt;/div&gt;
+  &lt;/v-app&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+
+
+</code></pre>
+<p><br/></p>
+<h3 id="countteacherspage">CountTeachersPage</h3>
+<pre><code class="language-html">&lt;script setup&gt;
+import {onMounted, ref} from &quot;vue&quot;;
+import instance from &quot;@/AxiosInstance&quot;;
+import router from &quot;@/router/router&quot;;
+import {TokenStore} from &quot;@/stores/TokenStore&quot;;
+
+const Token = TokenStore()
+const lessons = ref([])
+
+function getLessons(){
+  instance.get('/main/lessons/how_many_teachers', {
+    headers: {
+      'Authorization': `Bearer ${Token.token}`
+    }
+  }).then(response =&gt; {
+        if (response.status === 200){
+          lessons.value = response.data
+        }
+      }
+  ).catch(error =&gt; console.log(error))
+}
+
+onMounted(() =&gt; {getLessons()})
+
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div class=&quot;d-flex align-center flex-column ga-10&quot;&gt;
+    &lt;h2&gt;Число учителей на предмет&lt;/h2&gt;
+    &lt;v-btn @click=&quot;router.push('/count-teachers')&quot;&gt;Статистика по числу учителей&lt;/v-btn&gt;
+    &lt;template v-for=&quot;lesson in lessons&quot; :key=&quot;lesson.id&quot;&gt;
+      &lt;v-card
+          width=&quot;400&quot;
+          :title=&quot;`${lesson.name}: ${lesson.count}`&quot;
+      &gt;&lt;/v-card&gt;
+    &lt;/template&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;
+&lt;/style&gt;
+
+
+</code></pre>
+<p><br/></p>
+<h2 id="teacher">Teacher</h2>
+<p><br/></p>
+<h4> Страница учителей представлена 3 компонентами, в которых в скрипте используются axios-запросы: </h4>
+<p><br/></p>
+<p><img alt="interface" src="../lab_4_imgs/teachers.jpg" /></p>
+<h3 id="teacherlist">TeacherList</h3>
+<pre><code class="language-html">&lt;script setup&gt;
+import { onMounted, ref } from &quot;vue&quot;;
+import instance from &quot;@/AxiosInstance&quot;;
+import router from &quot;@/router/router&quot;;
+import { TokenStore } from &quot;@/stores/TokenStore&quot;;
+
+const Token = TokenStore();
+const teachers = ref([]);
+
+function getTeachers() {
+  instance
+    .get(&quot;/main/teachers/&quot;, {
+      headers: {
+        Authorization: `Bearer ${Token.token}`,
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 200) {
+        teachers.value = response.data;
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+}
+
+function deleteTeacher(id) {
+  instance
+    .delete(`/main/teachers/${id}/`, {
+      headers: {
+        Authorization: `Bearer ${Token.token}`,
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 204) {
+        getTeachers();
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+}
+
+onMounted(() =&gt; {
+  getTeachers();
+});
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div class=&quot;d-flex align-center flex-column ga-10&quot;&gt;
+    &lt;h2&gt;Учителя&lt;/h2&gt;
+    &lt;template v-for=&quot;teacher in teachers&quot; :key=&quot;teacher.id&quot;&gt;
+      &lt;v-card width=&quot;400&quot; :title=&quot;teacher.name&quot;
+        &gt;&lt;v-card-actions&gt;
+          &lt;v-btn @click=&quot;router.push('/teachers/' + teacher.id)&quot;&gt;
+            Изменить
+          &lt;/v-btn&gt;
+          &lt;v-btn @click=&quot;deleteTeacher(teacher.id)&quot;&gt; Удалить &lt;/v-btn&gt;
+        &lt;/v-card-actions&gt;&lt;/v-card
+      &gt;
+    &lt;/template&gt;
+    &lt;v-btn @click=&quot;router.push('/add-teacher')&quot;&gt;Добавить&lt;/v-btn&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+
+
+</code></pre>
+<p><br/></p>
+<h3 id="teacherpage">TeacherPage</h3>
+<pre><code class="language-html">&lt;script setup&gt;
+import { onMounted, ref } from &quot;vue&quot;;
+import instance from &quot;@/AxiosInstance&quot;;
+import router from &quot;@/router/router&quot;;
+import { TokenStore } from &quot;@/stores/TokenStore&quot;;
+
+const Token = TokenStore();
+
+const form = ref({
+  name: &quot;&quot;,
+});
+
+function getCard() {
+  instance
+    .get(`/main/teachers/${router.currentRoute.value.params.id}/`, {
+      headers: {
+        Authorization: `Bearer ${Token.token}`,
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 200) {
+        form.value = response.data;
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+}
+
+function saveCard() {
+  const { id, ...rest } = form.value;
+  instance
+    .patch(`/main/teachers/${router.currentRoute.value.params.id}/`, rest, {
+      headers: {
+        Authorization: `Bearer ${Token.token}`,
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 200) {
+        router.push(&quot;/teachers&quot;);
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+}
+
+onMounted(() =&gt; {
+  getCard();
+});
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;v-app&gt;
+    &lt;div class=&quot;w-50 mx-auto&quot;&gt;
+      &lt;h2&gt;Учитель&lt;/h2&gt;
+      &lt;v-text-field label=&quot;Имя&quot; v-model=&quot;form.name&quot;&gt;&lt;/v-text-field&gt;
+      &lt;v-btn @click=&quot;saveCard&quot;&gt;Сохранить&lt;/v-btn&gt;
+    &lt;/div&gt;
+  &lt;/v-app&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+
+
+</code></pre>
+<p><br/></p>
+<h3 id="addteacher">AddTeacher</h3>
+<pre><code class="language-html">&lt;script setup&gt;
+import { ref } from &quot;vue&quot;;
+import instance from &quot;@/AxiosInstance&quot;;
+import router from &quot;@/router/router&quot;;
+import { TokenStore } from &quot;@/stores/TokenStore&quot;;
+
+const Token = TokenStore();
+
+const form = ref({
+  name: &quot;&quot;,
+});
+
+function add() {
+  instance
+    .post(&quot;/main/teachers/&quot;, form.value, {
+      headers: {
+        Authorization: `Bearer ${Token.token}`,
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 201) {
+        router.push(&quot;/teachers&quot;);
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+}
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;v-app&gt;
+    &lt;div class=&quot;w-50 mx-auto&quot;&gt;
+      &lt;h2&gt;Учитель&lt;/h2&gt;
+      &lt;v-text-field label=&quot;Имя&quot; v-model=&quot;form.name&quot;&gt;&lt;/v-text-field&gt;
+      &lt;v-btn @click=&quot;add&quot;&gt;Создать&lt;/v-btn&gt;
+    &lt;/div&gt;
+  &lt;/v-app&gt;
+&lt;/template&gt;
+
+&lt;style&gt;
+.mx-auto {
+  color: #66fcf1;
+}
+&lt;/style&gt;
+
+
+</code></pre>
+<p><br/></p>
+<h2 id="lessonteacher">LessonTeacher</h2>
+<p><br/></p>
+<h4> Страница учителей уроков представлена 3 компонентами, в которых в скрипте используются axios-запросы: </h4>
+<p><br/></p>
+<p><img alt="interface" src="../lab_4_imgs/teacher_of.jpg" /></p>
+<h3 id="lessonteacherlist">LessonTeacherList</h3>
+<pre><code class="language-html">&lt;script setup&gt;
+import { onMounted, ref } from &quot;vue&quot;;
+import instance from &quot;@/AxiosInstance&quot;;
+import router from &quot;@/router/router&quot;;
+import { TokenStore } from &quot;@/stores/TokenStore&quot;;
+
+const Token = TokenStore();
+const teachers_lessons = ref([]);
+
+function getTeachers() {
+  instance
+    .get(&quot;/main/teachers-of/&quot;, {
+      headers: {
+        Authorization: `Bearer ${Token.token}`,
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 200) {
+        teachers_lessons.value = response.data;
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+}
+
+function deleteTeacher(id) {
+  instance
+    .delete(`/main/teachers-of/${id}/`, {
+      headers: {
+        Authorization: `Bearer ${Token.token}`,
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 204) {
+        getTeachers();
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+}
+
+onMounted(() =&gt; {
+  getTeachers();
+});
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div class=&quot;d-flex align-center flex-column ga-10&quot;&gt;
+    &lt;h2&gt;Назначения&lt;/h2&gt;
+    &lt;template
+      v-for=&quot;teacher_lesson in teachers_lessons&quot;
+      :key=&quot;teacher_lesson.id&quot;
+    &gt;
+      &lt;v-card
+        width=&quot;600&quot;
+        :title=&quot;`${teacher_lesson.teacher.name} ведет ${teacher_lesson.lesson.name}`&quot;
+        &gt;&lt;v-card-actions&gt;
+          &lt;v-btn @click=&quot;router.push('/teachers-lessons/' + teacher_lesson.id)&quot;&gt;
+            Изменить
+          &lt;/v-btn&gt;
+          &lt;v-btn @click=&quot;deleteTeacher(teacher_lesson.id)&quot;&gt; Удалить &lt;/v-btn&gt;
+        &lt;/v-card-actions&gt;&lt;/v-card
+      &gt;
+    &lt;/template&gt;
+    &lt;v-btn @click=&quot;router.push('/add-teacher-lesson')&quot;&gt;Добавить&lt;/v-btn&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+
+
+</code></pre>
+<p><br/></p>
+<h3 id="lessonteacherpage">LessonTeacherPage</h3>
+<pre><code class="language-html">&lt;script setup&gt;
+import { onMounted, ref } from &quot;vue&quot;;
+import instance from &quot;@/AxiosInstance&quot;;
+import router from &quot;@/router/router&quot;;
+import { TokenStore } from &quot;@/stores/TokenStore&quot;;
+
+const Token = TokenStore();
+
+const form = ref({
+  lesson: &quot;&quot;,
+  teacher: &quot;&quot;,
+});
+
+function getCard() {
+  instance
+    .get(`/main/teachers-of/${router.currentRoute.value.params.id}/`, {
+      headers: {
+        Authorization: `Bearer ${Token.token}`,
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 200) {
+        form.value = response.data;
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+}
+
+function saveCard() {
+  const { id, ...rest } = form.value;
+  console.log(rest);
+  instance
+    .patch(`/main/teachers-of/${router.currentRoute.value.params.id}/`, rest, {
+      headers: {
+        Authorization: `Bearer ${Token.token}`,
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 200) {
+        router.push(&quot;/teachers-lessons&quot;);
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+}
+
+onMounted(() =&gt; {
+  getCard();
+});
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;v-app&gt;
+    &lt;div class=&quot;w-50 mx-auto&quot;&gt;
+      &lt;h2&gt;Назначить учителя на предмет&lt;/h2&gt;
+      &lt;v-text-field label=&quot;Предмет&quot; v-model=&quot;form.lesson.name&quot;&gt;&lt;/v-text-field&gt;
+      &lt;v-text-field label=&quot;Учитель&quot; v-model=&quot;form.teacher.name&quot;&gt;&lt;/v-text-field&gt;
+      &lt;v-btn @click=&quot;saveCard&quot;&gt;Сохранить&lt;/v-btn&gt;
+    &lt;/div&gt;
+  &lt;/v-app&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+
+
+</code></pre>
+<p><br/></p>
+<h3 id="addlessonteacher">AddLessonTeacher</h3>
+<pre><code class="language-html">&lt;script setup&gt;
+import { onMounted, ref } from &quot;vue&quot;;
+import instance from &quot;@/AxiosInstance&quot;;
+import router from &quot;@/router/router&quot;;
+import { TokenStore } from &quot;@/stores/TokenStore&quot;;
+
+const Token = TokenStore();
+
+const form = ref({
+  lesson: &quot;&quot;,
+  teacher: &quot;&quot;,
+});
+
+const lessons = ref([]);
+const teachers = ref([]);
+
+function add() {
+  instance
+    .post(&quot;/main/teachers-of/&quot;, form.value, {
+      headers: {
+        Authorization: `Bearer ${Token.token}`,
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 201) {
+        router.push(&quot;/teachers-lessons&quot;);
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+}
+
+function getRooms() {
+  instance
+    .get(&quot;/main/teachers/&quot;, {
+      headers: {
+        Authorization: `Bearer ${Token.token}`,
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 200) {
+        teachers.value = response.data;
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+
+  instance
+    .get(&quot;/main/lessons/&quot;, {
+      headers: {
+        Authorization: `Bearer ${Token.token}`,
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 200) {
+        lessons.value = response.data;
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+}
+
+onMounted(() =&gt; {
+  getRooms();
+});
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;v-app&gt;
+    &lt;div class=&quot;w-50 mx-auto&quot;&gt;
+      &lt;h2&gt;Назначить учителя на предмет&lt;/h2&gt;
+      &lt;v-select
+        label=&quot;Предмет&quot;
+        v-model=&quot;form.lesson&quot;
+        :items=&quot;lessons&quot;
+        item-title=&quot;name&quot;
+        item-value=&quot;id&quot;
+      &gt;&lt;/v-select&gt;
+      &lt;v-select
+        label=&quot;Учитель&quot;
+        v-model=&quot;form.teacher&quot;
+        :items=&quot;teachers&quot;
+        item-title=&quot;name&quot;
+        item-value=&quot;id&quot;
+      &gt;&lt;/v-select&gt;
+      &lt;v-btn @click=&quot;add&quot;&gt;Создать&lt;/v-btn&gt;
+    &lt;/div&gt;
+  &lt;/v-app&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+
+
+</code></pre>
+<p><br/></p>
+<h2 id="room">Room</h2>
+<p><br/></p>
+<h4> Страница аудиторий представлена 3 компонентами, в которых в скрипте используются axios-запросы: </h4>
+<p><br/></p>
+<p><img alt="interface" src="../lab_4_imgs/rooms.jpg" /></p>
+<h3 id="roomlist">RoomList</h3>
+<pre><code class="language-html">&lt;script setup&gt;
+import { onMounted, ref } from &quot;vue&quot;;
+import instance from &quot;@/AxiosInstance&quot;;
+import router from &quot;@/router/router&quot;;
+import { TokenStore } from &quot;@/stores/TokenStore&quot;;
+
+const Token = TokenStore();
+const rooms = ref([]);
+const base = ref([]);
+const spec = ref([]);
+
+function getRooms() {
+  instance
+    .get(&quot;/main/rooms/&quot;, {
+      headers: {
+        Authorization: `Bearer ${Token.token}`,
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 200) {
+        rooms.value = response.data;
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+}
+
+function getBase() {
+  instance
+    .get(&quot;/main/rooms/count_base&quot;, {
+      headers: {
+        Authorization: `Bearer ${Token.token}`,
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 200) {
+        base.value = response.data;
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+
+  instance
+    .get(&quot;/main/rooms/count_specific&quot;, {
+      headers: {
+        Authorization: `Bearer ${Token.token}`,
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 200) {
+        spec.value = response.data;
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+}
+
+function deleteRoom(id) {
+  instance
+    .delete(`/main/rooms/${id}/`, {
+      headers: {
+        Authorization: `Bearer ${Token.token}`,
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 204) {
+        getRooms();
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+}
+
+function start() {
+  getRooms();
+  getBase();
+}
+onMounted(() =&gt; {
+  start();
+});
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div class=&quot;d-flex align-center flex-column ga-10&quot;&gt;
+    &lt;h2&gt;Аудитории&lt;/h2&gt;
+    &lt;v-card
+      width=&quot;500&quot;
+      :title=&quot;`${base.base} базовых, ${spec.specific} специализированных`&quot;
+    &gt;&lt;/v-card&gt;
+    &lt;template v-for=&quot;room in rooms&quot; :key=&quot;room.id&quot;&gt;
+      &lt;v-card
+        width=&quot;400&quot;
+        :title=&quot;room.num&quot;
+        :subtitle=&quot;`Наличие специализации: ${room.base}`&quot;
+        &gt;&lt;v-card-actions&gt;
+          &lt;v-btn @click=&quot;router.push('/rooms/' + room.num)&quot;&gt; Изменить &lt;/v-btn&gt;
+          &lt;v-btn @click=&quot;deleteRoom(room.id)&quot;&gt; Удалить &lt;/v-btn&gt;
+        &lt;/v-card-actions&gt;&lt;/v-card
+      &gt;
+    &lt;/template&gt;
+    &lt;v-btn @click=&quot;router.push('/add-room')&quot;&gt;Добавить&lt;/v-btn&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+
+
+</code></pre>
+<p><br/></p>
+<h3 id="roompage">RoomPage</h3>
+<pre><code class="language-html">&lt;script setup&gt;
+import { onMounted, ref } from &quot;vue&quot;;
+import instance from &quot;@/AxiosInstance&quot;;
+import router from &quot;@/router/router&quot;;
+import { TokenStore } from &quot;@/stores/TokenStore&quot;;
+
+const Token = TokenStore();
+
+const form = ref({
+  num: &quot;&quot;,
+  base: &quot;&quot;,
+});
+
+function getCard() {
+  instance
+    .get(`/main/rooms/${router.currentRoute.value.params.id}/`, {
+      headers: {
+        Authorization: `Bearer ${Token.token}`,
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 200) {
+        form.value = response.data;
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+}
+
+function saveCard() {
+  // const { id, ...rest } = form.value;
+  instance
+    .patch(`/main/rooms/${router.currentRoute.value.params.id}/`, form.value, {
+      headers: {
+        Authorization: `Bearer ${Token.token}`,
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 200) {
+        router.push(&quot;/rooms&quot;);
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+}
+
+onMounted(() =&gt; {
+  getCard();
+});
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;v-app&gt;
+    &lt;div class=&quot;w-50 mx-auto&quot;&gt;
+      &lt;h2&gt;Аудитория&lt;/h2&gt;
+      &lt;v-text-field label=&quot;Номер&quot; v-model=&quot;form.num&quot;&gt;&lt;/v-text-field&gt;
+      &lt;v-text-field
+        label=&quot;Без специализации&quot;
+        v-model=&quot;form.base&quot;
+      &gt;&lt;/v-text-field&gt;
+      &lt;v-btn @click=&quot;saveCard&quot;&gt;Сохранить&lt;/v-btn&gt;
+    &lt;/div&gt;
+  &lt;/v-app&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+
+
+</code></pre>
+<p><br/></p>
+<h3 id="addroom">AddRoom</h3>
+<pre><code class="language-html">&lt;script setup&gt;
+import { ref } from &quot;vue&quot;;
+import instance from &quot;@/AxiosInstance&quot;;
+import router from &quot;@/router/router&quot;;
+import { TokenStore } from &quot;@/stores/TokenStore&quot;;
+
+const Token = TokenStore();
+
+const form = ref({
+  full_name: &quot;&quot;,
+});
+
+function add() {
+  instance
+    .post(&quot;/main/rooms/&quot;, form.value, {
+      headers: {
+        Authorization: `Bearer ${Token.token}`,
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 201) {
+        router.push(&quot;/rooms&quot;);
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+}
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;v-app&gt;
+    &lt;div class=&quot;w-50 mx-auto&quot;&gt;
+      &lt;h2&gt;Добавить аудиторию&lt;/h2&gt;
+      &lt;v-text-field label=&quot;Номер&quot; v-model=&quot;form.num&quot;&gt;&lt;/v-text-field&gt;
+      &lt;v-text-field
+        label=&quot;Без специализации&quot;
+        v-model=&quot;form.base&quot;
+      &gt;&lt;/v-text-field&gt;
+      &lt;v-btn @click=&quot;add&quot;&gt;Создать&lt;/v-btn&gt;
+    &lt;/div&gt;
+  &lt;/v-app&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+
+
+</code></pre>
+<p><br/></p>
+<h2 id="students">Students</h2>
+<p><br/></p>
+<h4> Страница обучающихся представлена 2 компонентами, в которых в скрипте используются axios-запросы: </h4>
+<p><br/></p>
+<h3 id="studentpage">StudentPage</h3>
+<pre><code class="language-html">&lt;script setup&gt;
+import { onMounted, ref } from &quot;vue&quot;;
+import instance from &quot;@/AxiosInstance&quot;;
+import router from &quot;@/router/router&quot;;
+import { TokenStore } from &quot;@/stores/TokenStore&quot;;
+
+const Token = TokenStore();
+
+const form = ref({
+  name: &quot;&quot;,
+  age: &quot;&quot;,
+  sex: &quot;&quot;,
+  student_class: &quot;&quot;,
+});
+
+function getCard() {
+  instance
+    .get(`/main/students/${router.currentRoute.value.params.id}/`, {
+      headers: {
+        Authorization: `Bearer ${Token.token}`,
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 200) {
+        form.value = response.data;
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+}
+
+function saveCard() {
+  const { id, ...rest } = form.value;
+  instance
+    .patch(`/main/students/${router.currentRoute.value.params.id}/`, rest, {
+      headers: {
+        Authorization: `Bearer ${Token.token}`,
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 200) {
+        router.push(`/classes/${router.currentRoute.value.params.id}/students`);
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+}
+
+onMounted(() =&gt; {
+  getCard();
+});
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;v-app&gt;
+    &lt;div class=&quot;w-50 mx-auto&quot;&gt;
+      &lt;h2&gt;Учащийся&lt;/h2&gt;
+      &lt;v-text-field label=&quot;Имя&quot; v-model=&quot;form.name&quot;&gt;&lt;/v-text-field&gt;
+      &lt;v-text-field label=&quot;Возраст&quot; v-model=&quot;form.age&quot;&gt;&lt;/v-text-field&gt;
+      &lt;v-select label=&quot;Пол&quot; v-model=&quot;form.sex&quot; :items=&quot;['f', 'm']&quot;&gt;&lt;/v-select&gt;
+      &lt;v-text-field label=&quot;Класс&quot; v-model=&quot;form.student_class&quot;&gt;&lt;/v-text-field&gt;
+      &lt;v-btn @click=&quot;saveCard&quot;&gt;Сохранить&lt;/v-btn&gt;
+    &lt;/div&gt;
+  &lt;/v-app&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+
+
+</code></pre>
+<p><br/></p>
+<h3 id="addstudent">AddStudent</h3>
+<pre><code class="language-html">&lt;script setup&gt;
+import { onMounted, ref } from &quot;vue&quot;;
+import instance from &quot;@/AxiosInstance&quot;;
+import router from &quot;@/router/router&quot;;
+import { TokenStore } from &quot;@/stores/TokenStore&quot;;
+
+const Token = TokenStore();
+
+const form = ref({
+  name: &quot;&quot;,
+  age: &quot;&quot;,
+  sex: &quot;&quot;,
+  student_class: &quot;&quot;,
+});
+const classes = ref([]);
+
+function add() {
+  instance
+    .post(&quot;/main/students/&quot;, form.value, {
+      headers: {
+        Authorization: `Bearer ${Token.token}`,
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 201) {
+        router.push(&quot;/classes&quot;);
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+}
+
+function getRooms() {
+  instance
+    .get(&quot;/main/classes/&quot;, {
+      headers: {
+        Authorization: `Bearer ${Token.token}`,
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 200) {
+        classes.value = response.data;
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+}
+
+onMounted(() =&gt; {
+  getRooms();
+});
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;v-app&gt;
+    &lt;div class=&quot;w-50 mx-auto&quot;&gt;
+      &lt;h2&gt;Учащийся&lt;/h2&gt;
+      &lt;v-text-field label=&quot;Имя&quot; v-model=&quot;form.name&quot;&gt;&lt;/v-text-field&gt;
+      &lt;v-text-field label=&quot;Возраст&quot; v-model=&quot;form.age&quot;&gt;&lt;/v-text-field&gt;
+      &lt;v-select label=&quot;Пол&quot; v-model=&quot;form.sex&quot; :items=&quot;['f', 'm']&quot;&gt;&lt;/v-select&gt;
+      &lt;v-select
+        label=&quot;Класс&quot;
+        v-model=&quot;form.student_class&quot;
+        :items=&quot;classes&quot;
+        :item-title=&quot;(item) =&gt; item.teacher + ' ' + item.lesson&quot;
+        item-value=&quot;id&quot;
+      &gt;&lt;/v-select&gt;
+      &lt;v-btn @click=&quot;add&quot;&gt;Создать&lt;/v-btn&gt;
+    &lt;/div&gt;
+  &lt;/v-app&gt;
+&lt;/template&gt;
+&lt;style scoped&gt;&lt;/style&gt;
+
+
+</code></pre>
+<p><br/></p>
+<h2 id="class">Class</h2>
+<p><br/></p>
+<h4> Страница классов представлена 5 компонентами, в которых в скрипте используются axios-запросы: </h4>
+<p><br/></p>
+<p><img alt="interface" src="../lab_4_imgs/classes.jpg" /></p>
+<h3 id="classlist">ClassList</h3>
+<pre><code class="language-html">&lt;script setup&gt;
+import {onMounted, ref} from &quot;vue&quot;;
+import instance from &quot;@/AxiosInstance&quot;;
+import router from &quot;@/router/router&quot;;
+import {TokenStore} from &quot;@/stores/TokenStore&quot;;
+
+const Token = TokenStore()
+const classs = ref([])
+
+function getClasses(){
+  instance.get('/main/classes/', {
+    headers: {
+      'Authorization': `Bearer ${Token.token}`
+    }
+  }).then(response =&gt; {
+        if (response.status === 200){
+          classs.value = response.data
+        }
+      }
+  ).catch(error =&gt; console.log(error))
+}
+
+function deleteClass(id){
+  instance.delete(`/main/classes/${id}/`, {
+    headers: {
+      'Authorization': `Bearer ${Token.token}`
+    }
+  }).then(response =&gt; {
+        if (response.status === 204){
+          getClasses()
+        }
+      }
+  ).catch(error =&gt; console.log(error))
+}
+
+onMounted(() =&gt; {getClasses()})
+
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div class=&quot;d-flex align-center flex-column ga-10&quot;&gt;
+    &lt;h2&gt;Классы&lt;/h2&gt;
+    &lt;template v-for=&quot;student_class in classs&quot; :key=&quot;student_class.id&quot;&gt;
+      &lt;v-card
+          width=&quot;700&quot;
+          :title=&quot;`${student_class.year}${student_class.letter}`&quot;
+      &gt;&lt;v-card-actions&gt;
+        &lt;v-btn @click=&quot;router.push('/classes/' + student_class.id + '/students/')&quot;&gt;
+          Смотреть подробнее
+        &lt;/v-btn&gt;
+        &lt;v-btn @click=&quot;router.push('/classes/' + student_class.id)&quot;&gt;
+          Изменить
+        &lt;/v-btn&gt;
+        &lt;v-btn @click=&quot;deleteClass(student_class.id)&quot;&gt;
+          Удалить
+        &lt;/v-btn&gt;
+      &lt;/v-card-actions&gt;&lt;/v-card&gt;
+    &lt;/template&gt;
+    &lt;v-btn @click=&quot;router.push('/add-class')&quot;&gt;Добавить&lt;/v-btn&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;
+&lt;/style&gt;
+
+
+</code></pre>
+<p><br/></p>
+<h3 id="classpage">ClassPage</h3>
+<pre><code class="language-html">&lt;script setup&gt;
+import { onMounted, ref } from &quot;vue&quot;;
+import instance from &quot;@/AxiosInstance&quot;;
+import router from &quot;@/router/router&quot;;
+import { TokenStore } from &quot;@/stores/TokenStore&quot;;
+
+const Token = TokenStore();
+
+const form = ref({
+  letter: &quot;&quot;,
+  year: &quot;&quot;,
+});
+
+function getCard() {
+  instance
+    .get(/main/classes/${router.currentRoute.value.params.id}/, {
+      headers: {
+        Authorization: Bearer ${Token.token},
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 200) {
+        form.value = response.data;
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+}
+
+function savePaper() {
+  const { id, ...rest } = form.value;
+  instance
+    .patch(/main/classes/${router.currentRoute.value.params.id}/, rest, {
+      headers: {
+        Authorization: Bearer ${Token.token},
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 200) {
+        router.push(&quot;/classes&quot;);
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+}
+
+onMounted(() =&gt; {
+  getCard();
+});
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;v-app&gt;
+    &lt;div class=&quot;w-50 mx-auto&quot;&gt;
+      &lt;h2&gt;Класс&lt;/h2&gt;
+      &lt;v-text-field label=&quot;Год&quot; v-model=&quot;form.year&quot;&gt;&lt;/v-text-field&gt;
+      &lt;v-text-field label=&quot;Буква&quot; v-model=&quot;form.letter&quot;&gt;&lt;/v-text-field&gt;
+      &lt;v-btn @click=&quot;savePaper&quot;&gt;Сохранить&lt;/v-btn&gt;
+    &lt;/div&gt;
+  &lt;/v-app&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+
+</code></pre>
+<p><br/></p>
+<h3 id="addclass">AddClass</h3>
+<pre><code class="language-html">&lt;script setup&gt;
+import { ref } from &quot;vue&quot;;
+import instance from &quot;@/AxiosInstance&quot;;
+import router from &quot;@/router/router&quot;;
+import { TokenStore } from &quot;@/stores/TokenStore&quot;;
+
+const Token = TokenStore();
+
+const form = ref({
+  letter: &quot;&quot;,
+  year: &quot;&quot;,
+});
+
+function add() {
+  instance
+    .post(&quot;/main/classes/&quot;, form.value, {
+      headers: {
+        Authorization: `Bearer ${Token.token}`,
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 201) {
+        router.push(&quot;/classes&quot;);
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+}
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;v-app&gt;
+    &lt;div class=&quot;w-50 mx-auto&quot;&gt;
+      &lt;h2&gt;Класс&lt;/h2&gt;
+      &lt;v-text-field label=&quot;Год&quot; v-model=&quot;form.year&quot;&gt;&lt;/v-text-field&gt;
+      &lt;v-text-field label=&quot;Буква&quot; v-model=&quot;form.letter&quot;&gt;&lt;/v-text-field&gt;
+      &lt;v-btn @click=&quot;add&quot;&gt;Создать&lt;/v-btn&gt;
+    &lt;/div&gt;
+  &lt;/v-app&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+
+
+</code></pre>
+<p><br/></p>
+<h3 id="classstudentpage">ClassStudentPage</h3>
+<pre><code class="language-html">&lt;script setup&gt;
+import { onMounted, ref } from &quot;vue&quot;;
+import instance from &quot;@/AxiosInstance&quot;;
+import router from &quot;@/router/router&quot;;
+import { TokenStore } from &quot;@/stores/TokenStore&quot;;
+
+const Token = TokenStore();
+const students = ref([]);
+const sexes = ref([]);
+
+function getStudents() {
+  instance
+    .get(
+      `/main/classes/${router.currentRoute.value.params.id}/show_students/`,
+      {
+        headers: {
+          Authorization: `Bearer ${Token.token}`,
+        },
+      }
+    )
+    .then((response) =&gt; {
+      if (response.status === 200) {
+        students.value = response.data;
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+
+  instance
+    .get(
+      `/main/classes/${router.currentRoute.value.params.id}/count_boys_and_girls/`,
+      {
+        headers: {
+          Authorization: `Bearer ${Token.token}`,
+        },
+      }
+    )
+    .then((response) =&gt; {
+      if (response.status === 200) {
+        sexes.value = response.data;
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+}
+
+function deleteStudent(id) {
+  instance
+    .delete(`/main/students/${id}/`, {
+      headers: {
+        Authorization: `Bearer ${Token.token}`,
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 204) {
+        getStudents();
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+}
+
+onMounted(() =&gt; {
+  getStudents();
+});
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div class=&quot;d-flex align-center flex-column ga-10&quot;&gt;
+    &lt;h2&gt;Учащиеся&lt;/h2&gt;
+    &lt;v-card
+      width=&quot;500&quot;
+      :title=&quot;`${sexes.boys} мальчиков, ${sexes.girls} девочек`&quot;
+    &gt;
+    &lt;/v-card&gt;
+    &lt;v-btn
+      @click=&quot;
+        router.push(
+          '/classes/' + router.currentRoute.value.params.id + '/statistics'
+        )
+      &quot;
+      &gt;Оценки&lt;/v-btn
+    &gt;
+    &lt;template v-for=&quot;student in students&quot; :key=&quot;student.id&quot;&gt;
+      &lt;v-card
+        width=&quot;400&quot;
+        :title=&quot;student.name&quot;
+        :subtitle=&quot;`${student.age} Y.O., ${student.sex}`&quot;
+        &gt;&lt;v-card-actions&gt;
+          &lt;v-btn @click=&quot;router.push('/students/' + student.id)&quot;&gt;
+            Изменить
+          &lt;/v-btn&gt;
+          &lt;v-btn @click=&quot;deleteStudent(student.id)&quot;&gt; Удалить &lt;/v-btn&gt;
+        &lt;/v-card-actions&gt;&lt;/v-card
+      &gt;
+    &lt;/template&gt;
+    &lt;v-btn @click=&quot;router.push('/add-student')&quot;&gt;Добавить&lt;/v-btn&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+
+
+</code></pre>
+<p><br/></p>
+<h3 id="showstatistics">ShowStatistics</h3>
+<pre><code class="language-html">&lt;script setup&gt;
+import {onMounted, ref} from &quot;vue&quot;;
+import instance from &quot;@/AxiosInstance&quot;;
+import router from &quot;@/router/router&quot;;
+import {TokenStore} from &quot;@/stores/TokenStore&quot;;
+
+const Token = TokenStore()
+const lessons = ref([])
+const headrs = [{
+  title: 'Студент',
+  value: 'name'
+},
+  {
+    title: 'Оценки',
+    value: 'marks'
+  },
+  {
+    title: 'Среднее',
+    value: 'mean'
+  },
+]
+
+function getClasses(){
+  instance.get( `/main/classes/${router.currentRoute.value.params.id}/statistics/`, {
+    headers: {
+      'Authorization': `Bearer ${Token.token}`
+    }
+  }).then(response =&gt; {
+        if (response.status === 200){
+          lessons.value = response.data
+        }
+      }
+  ).catch(error =&gt; console.log(error))
+}
+
+onMounted(() =&gt; {getClasses()})
+
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div class=&quot;d-flex align-center flex-column ga-10&quot;&gt;
+    &lt;h2&gt;Оценки по предметам&lt;/h2&gt;
+    &lt;template v-for=&quot;lesson in lessons&quot; :key=&quot;lesson.id&quot;&gt;
+      &lt;v-card
+        width=&quot;700&quot;
+        :title=&quot;lesson.name&quot;
+      &gt;&lt;/v-card&gt;
+
+      &lt;v-data-table :items=&quot;lesson.students&quot; :headers=&quot;headrs&quot;&gt; &lt;/v-data-table&gt;
+    &lt;/template&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;
+&lt;/style&gt;
+
+
+</code></pre>
+<p><br/></p>
+<h2 id="schedule">Schedule</h2>
+<p><br/></p>
+<h4> Страница расписания представлена 4 компонентами, в которых в скрипте используются axios-запросы: </h4>
+<p><br/></p>
+<p><img alt="interface" src="../lab_4_imgs/shudule.jpg" /></p>
+<h3 id="schedulelist">ScheduleList</h3>
+<pre><code class="language-html">&lt;script setup&gt;
+import { onMounted, ref } from &quot;vue&quot;;
+import instance from &quot;@/AxiosInstance&quot;;
+import router from &quot;@/router/router&quot;;
+import { TokenStore } from &quot;@/stores/TokenStore&quot;;
+
+const Token = TokenStore();
+const schedules = ref([]);
+
+function getSchedules() {
+  instance
+    .get(&quot;/main/schedule/&quot;, {
+      headers: {
+        Authorization: `Bearer ${Token.token}`,
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 200) {
+        schedules.value = response.data;
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+}
+
+function deleteSchedule(id) {
+  instance
+    .delete(`/main/schedule/${id}/`, {
+      headers: {
+        Authorization: `Bearer ${Token.token}`,
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 204) {
+        getSchedules();
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+}
+
+onMounted(() =&gt; {
+  getSchedules();
+});
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div class=&quot;d-flex align-center flex-column ga-10&quot;&gt;
+    &lt;h2&gt;Расписание&lt;/h2&gt;
+    &lt;v-btn @click=&quot;router.push('/find-concrete')&quot;&gt;Искать конкретно&lt;/v-btn&gt;
+    &lt;template v-for=&quot;schedule in schedules&quot; :key=&quot;schedule.id&quot;&gt;
+      &lt;v-card
+        width=&quot;400&quot;
+        :title=&quot;`${schedule.day}, ${schedule.num_lesson}`&quot;
+        :subtitle=&quot;`${schedule.student_class}, ${schedule.teacher}, ${schedule.lesson}`&quot;
+        &gt;&lt;v-card-actions&gt;
+          &lt;v-btn
+            @click=&quot;router.push('/schedules/' + schedule.id + '/add-mark/')&quot;
+          &gt;
+            Добавить оценку
+          &lt;/v-btn&gt;
+          &lt;v-btn @click=&quot;router.push('/schedules/' + schedule.id)&quot;&gt;
+            Изменить
+          &lt;/v-btn&gt;
+          &lt;v-btn @click=&quot;deleteSchedule(schedule.id)&quot;&gt; Удалить &lt;/v-btn&gt;
+        &lt;/v-card-actions&gt;&lt;/v-card
+      &gt;
+    &lt;/template&gt;
+    &lt;v-btn @click=&quot;router.push('/add-schedule')&quot;&gt;Добавить&lt;/v-btn&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+
+
+</code></pre>
+<p><br/></p>
+<h3 id="schedulepage">SchedulePage</h3>
+<pre><code class="language-html">&lt;script setup&gt;
+import { onMounted, ref } from &quot;vue&quot;;
+import instance from &quot;@/AxiosInstance&quot;;
+import router from &quot;@/router/router&quot;;
+import { TokenStore } from &quot;@/stores/TokenStore&quot;;
+
+const Token = TokenStore();
+
+const form = ref({
+  day: &quot;&quot;,
+  num_lesson: &quot;&quot;,
+  student_class: &quot;&quot;,
+  room: &quot;&quot;,
+  teacher: &quot;&quot;,
+});
+
+function getCard() {
+  instance
+    .get(`/main/schedule/${router.currentRoute.value.params.id}/`, {
+      headers: {
+        Authorization: `Bearer ${Token.token}`,
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 200) {
+        form.value = response.data;
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+}
+
+function saveCard() {
+  const { id, ...rest } = form.value;
+  instance
+    .patch(`/main/schedule/${router.currentRoute.value.params.id}/`, rest, {
+      headers: {
+        Authorization: `Bearer ${Token.token}`,
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 200) {
+        router.push(&quot;/schedules&quot;);
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+}
+
+onMounted(() =&gt; {
+  getCard();
+});
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;v-app&gt;
+    &lt;div class=&quot;w-50 mx-auto&quot;&gt;
+      &lt;h2&gt;Расписание&lt;/h2&gt;
+      &lt;v-select
+        label=&quot;День недели&quot;
+        v-model=&quot;form.day&quot;
+        :items=&quot;['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс']&quot;
+      &gt;&lt;/v-select&gt;
+      &lt;v-text-field
+        label=&quot;Порядковый номер урока&quot;
+        v-model=&quot;form.num_lesson&quot;
+      &gt;&lt;/v-text-field&gt;
+      &lt;v-text-field label=&quot;Класс&quot; v-model=&quot;form.student_class&quot;&gt;&lt;/v-text-field&gt;
+      &lt;v-text-field label=&quot;Аудитория&quot; v-model=&quot;form.room&quot;&gt;&lt;/v-text-field&gt;
+      &lt;v-text-field label=&quot;Учитель&quot; v-model=&quot;form.teacher&quot;&gt;&lt;/v-text-field&gt;
+      &lt;v-btn @click=&quot;saveCard&quot;&gt;Сохранить&lt;/v-btn&gt;
+    &lt;/div&gt;
+  &lt;/v-app&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+
+
+</code></pre>
+<p><br/></p>
+<h3 id="addschedule">AddSchedule</h3>
+<pre><code class="language-html">&lt;script setup&gt;
+import { onMounted, ref } from &quot;vue&quot;;
+import instance from &quot;@/AxiosInstance&quot;;
+import router from &quot;@/router/router&quot;;
+import { TokenStore } from &quot;@/stores/TokenStore&quot;;
+
+const Token = TokenStore();
+
+const form = ref({
+  day: &quot;&quot;,
+  num_lesson: &quot;&quot;,
+  student_class: &quot;&quot;,
+  room: &quot;&quot;,
+  lesson_teacher: &quot;&quot;,
+});
+
+const rooms = ref([]);
+const classes = ref([]);
+const l_t = ref([]);
+
+function create() {
+  instance
+    .post(&quot;/main/schedule/&quot;, form.value, {
+      headers: {
+        Authorization: `Bearer ${Token.token}`,
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 201) {
+        router.push(&quot;/schedules&quot;);
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+}
+
+function getRooms() {
+  instance
+    .get(&quot;/main/rooms/&quot;, {
+      headers: {
+        Authorization: `Bearer ${Token.token}`,
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 200) {
+        rooms.value = response.data;
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+
+  instance
+    .get(&quot;/main/classes/&quot;, {
+      headers: {
+        Authorization: `Bearer ${Token.token}`,
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 200) {
+        classes.value = response.data;
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+
+  instance
+    .get(&quot;/main/teachers-of/clear/&quot;, {
+      headers: {
+        Authorization: `Bearer ${Token.token}`,
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 200) {
+        l_t.value = response.data;
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+}
+
+onMounted(() =&gt; {
+  getRooms();
+});
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;v-app&gt;
+    &lt;div class=&quot;w-50 mx-auto&quot;&gt;
+      &lt;h2&gt;Добавить расписание&lt;/h2&gt;
+      &lt;v-select
+        label=&quot;День недели&quot;
+        v-model=&quot;form.day&quot;
+        :items=&quot;['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс']&quot;
+      &gt;&lt;/v-select&gt;
+      &lt;v-text-field
+        label=&quot;Порядковый номер урока&quot;
+        v-model=&quot;form.num_lesson&quot;
+      &gt;&lt;/v-text-field&gt;
+      &lt;v-select
+        label=&quot;Аудитория&quot;
+        v-model=&quot;form.room&quot;
+        :items=&quot;rooms&quot;
+        item-title=&quot;num&quot;
+        item-value=&quot;id&quot;
+      &gt;&lt;/v-select&gt;
+      &lt;v-select
+        label=&quot;Класс&quot;
+        v-model=&quot;form.student_class&quot;
+        :items=&quot;classes&quot;
+        :item-title=&quot;(item) =&gt; item.year + item.letter&quot;
+        item-value=&quot;id&quot;
+      &gt;&lt;/v-select&gt;
+      &lt;v-select
+        label=&quot;Учитель и предмет&quot;
+        v-model=&quot;form.lesson_teacher&quot;
+        :items=&quot;l_t&quot;
+        :item-title=&quot;(item) =&gt; item.teacher + ' ' + item.lesson&quot;
+        item-value=&quot;id&quot;
+      &gt;&lt;/v-select&gt;
+      &lt;v-btn @click=&quot;create&quot;&gt;Создать&lt;/v-btn&gt;
+    &lt;/div&gt;
+  &lt;/v-app&gt;
+&lt;/template&gt;
+&lt;style scoped&gt;&lt;/style&gt;
+
+
+</code></pre>
+<p><br/></p>
+<h3 id="findconcrete">FindConcrete</h3>
+<pre><code class="language-html">&lt;script setup&gt;
+import { ref } from &quot;vue&quot;;
+import instance from &quot;@/AxiosInstance&quot;;
+import router from &quot;@/router/router&quot;;
+import { TokenStore } from &quot;@/stores/TokenStore&quot;;
+
+const Token = TokenStore();
+
+const error = ref(false);
+
+const form = ref({
+  day: &quot;&quot;,
+  num_lesson: &quot;&quot;,
+  room: &quot;&quot;,
+});
+
+const schedules = ref();
+
+function find() {
+  instance
+    .post(&quot;/main/schedule/find/&quot;, form.value, {
+      headers: {
+        Authorization: `Bearer ${Token.token}`,
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 200) {
+        schedules.value = response.data;
+      }
+    })
+    .catch((e) =&gt; (error.value = true));
+}
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;v-app&gt;
+    &lt;div class=&quot;w-50 mx-auto&quot;&gt;
+      &lt;h2&gt;Найти расписание:&lt;/h2&gt;
+      &lt;v-text-field label=&quot;День недели&quot; v-model=&quot;form.day&quot;&gt;&lt;/v-text-field&gt;
+      &lt;v-text-field
+        label=&quot;Номер урока&quot;
+        v-model=&quot;form.num_lesson&quot;
+      &gt;&lt;/v-text-field&gt;
+      &lt;v-text-field label=&quot;Номер удитории&quot; v-model=&quot;form.room&quot;&gt;&lt;/v-text-field&gt;
+      &lt;v-btn @click=&quot;find&quot;&gt;Найти&lt;/v-btn&gt;
+    &lt;/div&gt;
+    &lt;div v-if=&quot;error&quot; class=&quot;text-red&quot;&gt;Не найдено&lt;/div&gt;
+    &lt;div v-else-if=&quot;schedules&quot;&gt;
+      &lt;template v-for=&quot;schedule in schedules&quot; :key=&quot;schedule&quot;&gt;
+        &lt;v-card
+          width=&quot;400&quot;
+          :title=&quot;`${schedule.day}, ${schedule.num_lesson}`&quot;
+          :subtitle=&quot;`${schedule.student_class}, ${schedule.teacher}, ${schedule.lesson}`&quot;
+        &gt;&lt;/v-card&gt;
+      &lt;/template&gt;
+    &lt;/div&gt;
+  &lt;/v-app&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+
+</code></pre>
+<p><br/></p>
+<h2 id="mark">Mark</h2>
+<p><br/></p>
+<h4> Страница оценок представлена 3 компонентами, в которых в скрипте используются axios-запросы: </h4>
+<p><br/></p>
+<p><img alt="interface" src="../lab_4_imgs/marks.jpg" /></p>
+<h3 id="marklist">MarkList</h3>
+<pre><code class="language-html">&lt;script setup&gt;
+import {onMounted, ref} from &quot;vue&quot;;
+import instance from &quot;@/AxiosInstance&quot;;
+import router from &quot;@/router/router&quot;;
+import {TokenStore} from &quot;@/stores/TokenStore&quot;;
+
+const Token = TokenStore()
+const marks = ref([])
+
+function getmarks(){
+  instance.get('/main/marks/', {
+    headers: {
+      'Authorization': `Bearer ${Token.token}`
+    }
+  }).then(response =&gt; {
+        if (response.status === 200){
+          marks.value = response.data
+        }
+      }
+  ).catch(error =&gt; console.log(error))
+}
+
+function deleteMark(id){
+  instance.delete(`/main/marks/${id}/`, {
+    headers: {
+      'Authorization': `Bearer ${Token.token}`
+    }
+  }).then(response =&gt; {
+        if (response.status === 204){
+          getmarks()
+        }
+      }
+  ).catch(error =&gt; console.log(error))
+}
+
+onMounted(() =&gt; {getmarks()})
+
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div class=&quot;d-flex align-center flex-column ga-10&quot;&gt;
+    &lt;h2&gt;Оценки&lt;/h2&gt;
+    &lt;template v-for=&quot;mark in marks&quot; :key=&quot;mark.id&quot;&gt;
+      &lt;v-card
+          width=&quot;400&quot;
+          :title=&quot;mark.mark&quot;
+          :subtitle=&quot;`${mark.student} (ID занятия: ${mark.schedule})`&quot;
+      &gt;&lt;v-card-actions&gt;
+        &lt;v-btn @click=&quot;router.push('/marks/' + mark.id)&quot;&gt;
+          Изменить
+        &lt;/v-btn&gt;
+        &lt;v-btn @click=&quot;deleteMark(mark.id)&quot;&gt;
+          Удалить
+        &lt;/v-btn&gt;
+      &lt;/v-card-actions&gt;&lt;/v-card&gt;
+    &lt;/template&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;
+&lt;/style&gt;
+
+
+</code></pre>
+<p><br/></p>
+<h3 id="markpage">MarkPage</h3>
+<pre><code class="language-html">&lt;script setup&gt;
+import { onMounted, ref } from &quot;vue&quot;;
+import instance from &quot;@/AxiosInstance&quot;;
+import router from &quot;@/router/router&quot;;
+import { TokenStore } from &quot;@/stores/TokenStore&quot;;
+
+const Token = TokenStore();
+
+const form = ref({
+  student: &quot;&quot;,
+  schedule: &quot;&quot;,
+  mark: &quot;&quot;,
+});
+
+function getCard() {
+  instance
+    .get(`/main/marks/${router.currentRoute.value.params.id}/`, {
+      headers: {
+        Authorization: `Bearer ${Token.token}`,
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 200) {
+        form.value = response.data;
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+}
+
+function saveCard() {
+  const { id, ...rest } = form.value;
+  instance
+    .patch(`/main/marks/${router.currentRoute.value.params.id}/`, rest, {
+      headers: {
+        Authorization: `Bearer ${Token.token}`,
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 200) {
+        router.push(&quot;/marks&quot;);
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+}
+
+onMounted(() =&gt; {
+  getCard();
+});
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;v-app&gt;
+    &lt;div class=&quot;w-50 mx-auto&quot;&gt;
+      &lt;h2&gt;Оценка&lt;/h2&gt;
+      &lt;v-text-field label=&quot;Студент&quot; v-model=&quot;form.student&quot;&gt;&lt;/v-text-field&gt;
+      &lt;v-text-field label=&quot;Оценка&quot; v-model=&quot;form.mark&quot;&gt;&lt;/v-text-field&gt;
+      &lt;v-text-field label=&quot;Занятие&quot; v-model=&quot;form.schedule&quot;&gt;&lt;/v-text-field&gt;
+
+      &lt;v-btn @click=&quot;saveCard&quot;&gt;Сохранить&lt;/v-btn&gt;
+    &lt;/div&gt;
+  &lt;/v-app&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+
+
+</code></pre>
+<p><br/></p>
+<h3 id="addmark">AddMark</h3>
+<pre><code class="language-html">&lt;script setup&gt;
+import { onMounted, ref } from &quot;vue&quot;;
+import instance from &quot;@/AxiosInstance&quot;;
+import router from &quot;@/router/router&quot;;
+import { TokenStore } from &quot;@/stores/TokenStore&quot;;
+
+const Token = TokenStore();
+
+const form = ref({
+  student: &quot;&quot;,
+  schedule: &quot;&quot;,
+  mark: &quot;&quot;,
+});
+
+const students = ref([]);
+
+function add() {
+  form.value.schedule = router.currentRoute.value.params.id;
+
+  instance
+    .post(&quot;/main/marks/&quot;, form.value, {
+      headers: {
+        Authorization: `Bearer ${Token.token}`,
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 201) {
+        router.push(&quot;/classes&quot;);
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+}
+
+function getRooms() {
+  instance
+    .get(&quot;/main/students/&quot;, {
+      headers: {
+        Authorization: `Bearer ${Token.token}`,
+      },
+    })
+    .then((response) =&gt; {
+      if (response.status === 200) {
+        students.value = response.data;
+      }
+    })
+    .catch((error) =&gt; console.log(error));
+}
+
+onMounted(() =&gt; {
+  getRooms();
+});
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;v-app&gt;
+    &lt;div class=&quot;w-50 mx-auto&quot;&gt;
+      &lt;h2&gt;Добавить оценку&lt;/h2&gt;
+      &lt;v-select
+        label=&quot;Студент&quot;
+        v-model=&quot;form.student&quot;
+        :items=&quot;students&quot;
+        item-title=&quot;name&quot;
+        item-value=&quot;id&quot;
+      &gt;&lt;/v-select&gt;
+      &lt;v-text-field label=&quot;Оценка&quot; v-model=&quot;form.mark&quot;&gt;&lt;/v-text-field&gt;
+      &lt;v-btn @click=&quot;add&quot;&gt;Создать&lt;/v-btn&gt;
+    &lt;/div&gt;
+  &lt;/v-app&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+
+
+</code></pre>
+<p><br/></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Навигация по странице">
+        <a href="../lab_3/" class="btn btn-neutral float-left" title="lab_3"><span class="icon icon-circle-arrow-left"></span> Назад</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Собрано в <a href="https://www.mkdocs.org/">MkDocs</a> с использованием <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> от <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Версии">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../lab_3/" style="color: #fcfcfc">&laquo; Назад</a></span>
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

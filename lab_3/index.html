@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ru" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>lab_3 - Saunin Anton</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "lab_3";
+        var mkdocs_page_input_path = "lab_3.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/rust.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Saunin Anton
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Поиск в документации" aria-label="Поиск в документации" title="Введите поисковый запрос" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Навигационное меню">
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">lab_3</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#lesson">Lesson (Занятия)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#teacher">Teacher (Учителя)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#teacherof">TeacherOf (Предмет учителя)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#studentclass">StudentClass (Класс)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#student">Student (обучающийся)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#room">Room (аудитория)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#schedule">Schedule (расписание)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#mark">Mark (оценка)</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../lab_4/">lab_4</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Мобильная версия навигации">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Saunin Anton</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Документация"></a></li>
+      <li class="breadcrumb-item active">lab_3</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">Описание моделей</h1>
+<hr />
+<p><br></p>
+<h2 id="lesson"><em>Lesson (Занятия)</em></h2>
+<p><br></p>
+<p>Модель <strong><em>Lesson</em></strong> представляет занятие и содержит следующие поля: <br>
+- <strong>name (название):</strong> CharField с максимальной длиной 100 символов</p>
+<p><br><br></p>
+<h2 id="teacher"><em>Teacher (Учителя)</em></h2>
+<p><br></p>
+<p>Модель <strong><em>Teacher</em></strong> представляет учителя и содержит следующие поля: <br>
+- <strong>name (имя):</strong> CharField с максимальной длиной 100 символов</p>
+<p><br><br></p>
+<h2 id="teacherof"><em>TeacherOf (Предмет учителя)</em></h2>
+<p><br></p>
+<p>Модель <strong><em>TeacherOf</em></strong> представляет занятие и содержит следующие поля: <br>
+- <strong>Lesson (название):</strong> ForeignKey с ссылкой на модель <em>Lesson</em> <br>
+- <strong>Teacher (учитель):</strong> ForeignKey с ссылкой на модель <em>Teacher</em> <br>
+<br><br></p>
+<h2 id="studentclass"><em>StudentClass (Класс)</em></h2>
+<p><br></p>
+<p>Модель <strong><em>Class</em></strong> представляет учебный класс и содержит следующие поля: <br>
+- <strong>letter (буква):</strong> CharField с максимальной длиной 2 символа <br>
+- <strong>year (год):</strong> IntegerField</p>
+<p><br><br></p>
+<h2 id="student"><em>Student (обучающийся)</em></h2>
+<p><br></p>
+<p>Модель <strong><em>Student</em></strong> представляет обучающегося и содержит следующие поля: <br>
+- <strong>name (имя):</strong> CharField с максимальной длиной 100 символов <br>
+- <strong>age (возраст):</strong> PositiveIntegerField <br>
+- <strong>sex (пол):</strong> CharField с максимальной длиной 2 символа <br>
+- <strong>student_class (класс):</strong> ForeignKey с ссылкой на модель <em>StudentClass</em> <br>
+<br><br></p>
+<h2 id="room"><em>Room (аудитория)</em></h2>
+<p><br></p>
+<p>Модель <strong><em>Room</em></strong> представляет аудиторию и содержит следующие поля: <br>
+- <strong>num (номер):</strong> CharField с максимальной длиной 4 символа <br>
+- <strong>base(специализация) :</strong> BooleanField</p>
+<p><br><br></p>
+<h2 id="schedule"><em>Schedule (расписание)</em></h2>
+<p><br></p>
+<p>Модель <strong><em>Schedule</em></strong> представляет аудиторию и содержит следующие поля: <br>
+- <strong>day (день):</strong> CharField с максимальной длиной 10 символов <br>
+- <strong>base :</strong> BooleanField <br>
+- <strong>num_lesson (номер урока):</strong> IntegerField <br>
+- <strong>student_class (класс):</strong> ForeignKey с ссылкой на модель <em>StudentClass</em> <br>
+- <strong>room (аудитория):</strong> ForeignKey с ссылкой на модель <em>Room</em> <br>
+- <strong>lesson_teacher (класс):</strong> ForeignKey с ссылкой на модель <em>LessonTeacher</em> <br>
+<br><br></p>
+<h2 id="mark"><em>Mark (оценка)</em></h2>
+<p><br></p>
+<p>Модель <strong><em>Mark</em></strong> представляет оценку и содержит следующие поля: <br>
+- <strong>student (обучающийся):</strong> ForeignKey с ссылкой на модель <em>Student</em> <br>
+- <strong>schedule (расписание):</strong> ForeignKey с ссылкой на модель <em>Schedule</em> <br>
+- <strong>mark (оценка):</strong> IntegerField <br></p>
+<p><br><br></p>
+<h1 id="_2">Сериалайзеры</h1>
+<hr />
+<p><br/></p>
+<h2 id="roomserializer"><em>RoomSerializer</em></h2>
+<p><br/></p>
+<p>Класс <strong>RoomSerializer</strong> является сериалайзером для модели <strong>Room</strong>. <br/>
+Он наследует от <strong>serializers.ModelSerializer</strong> и определяет следующие поля: <br/>
+- <strong>num (номер)</strong> <br>
+- <strong>base</strong> 
+<br><br></p>
+<h2 id="teacherserializer"><em>TeacherSerializer</em></h2>
+<p><br/></p>
+<p>Класс <strong>TeacherSerializer</strong> является сериалайзером для модели <strong>Teacher</strong>. <br/>
+Он наследует от <strong>serializers.ModelSerializer</strong> и определяет следующие поля: <br/>
+- <strong>name (имя)</strong> CharField
+<br><br></p>
+<h2 id="lessonserializer"><em>LessonSerializer</em></h2>
+<p><br/></p>
+<p>Класс <strong>LessonSerializer</strong> является сериалайзером для модели <strong>Lesson</strong>. <br/>
+Он наследует от <strong>serializers.ModelSerializer</strong> и определяет следующие поля: <br/>
+- <strong>name (название)</strong>
+<br><br></p>
+<h2 id="countteachersserializer"><em>CountTeachersSerializer</em></h2>
+<p><br/></p>
+<p>Класс <strong>CountTeachersSerializer</strong> является сериалайзером для модели <strong>Lesson</strong>. <br/>
+Он наследует от <strong>serializers.ModelSerializer</strong> и определяет следующие поля: <br/>
+- <strong>id</strong>
+- <strong>name</strong>
+- <strong>count</strong>
+<br><br></p>
+<h2 id="showotherteachersserializers"><em>ShowOtherTeachersSerializers</em></h2>
+<p><br/></p>
+<p>Класс <strong>ShowOtherTeachersSerializers</strong> является сериалайзером для модели <strong>Lesson</strong>. <br/>
+Он наследует от <strong>serializers.ModelSerializer</strong> и определяет следующие поля: <br/>
+- <strong>id</strong>
+- <strong>name</strong>
+- <strong>teachers</strong>
+<br><br></p>
+<h2 id="teacherofserializer"><em>TeacherOfSerializer</em></h2>
+<p><br/></p>
+<p>Класс <strong>TeacherOfSerializer</strong> является сериалайзером для модели <strong>TeacherOf</strong>. <br/>
+Он наследует от <strong>serializers.ModelSerializer</strong> и определяет следующие поля: <br/>
+- <strong>Lesson (название)</strong> <br>
+- <strong>Teacher (название)</strong> <br>
+<br><br></p>
+<h2 id="showteacherofserializer"><em>ShowTeacherOfSerializer</em></h2>
+<p><br/></p>
+<p>Класс <strong>ShowTeacherOfSerializer</strong> является сериалайзером для модели <strong>TeacherOf</strong>. <br/>
+Он наследует от <strong>serializers.ModelSerializer</strong> и определяет следующие поля: <br/>
+- <strong>id</strong> <br/>
+- <strong>Lesson (название)</strong> <br>
+- <strong>Teacher (имя)</strong> <br>
+<br><br></p>
+<h2 id="markserializer"><em>MarkSerializer</em></h2>
+<p><br/></p>
+<p>Класс <strong>MarkSerializer</strong> является сериалайзером для модели <strong>Mark</strong>. <br/>
+Он наследует от <strong>serializers.ModelSerializer</strong> и определяет следующие поля: <br/>
+- <strong>student (обучающийся)</strong> <br>
+- <strong>schedule (расписание)</strong> <br>
+- <strong>mark (оценка)</strong> <br>
+<br><br></p>
+<h2 id="showmarkserializer"><em>ShowMarkSerializer</em></h2>
+<p><br/></p>
+<p>Класс <strong>ShowMarkSerializer</strong> является сериалайзером для модели <strong>Mark</strong>. <br/>
+Он наследует от <strong>serializers.ModelSerializer</strong> и определяет следующие поля: <br/>
+- <strong>id</strong> <br/>
+- <strong>student (обучающийся)</strong> <br>
+- <strong>schedule (расписание)</strong> <br>
+- <strong>mark (оценка)</strong> <br>
+<br><br></p>
+<h2 id="studentserializer"><em>StudentSerializer</em></h2>
+<p><br/></p>
+<p>Класс <strong>StudentSerializer</strong> является сериалайзером для модели <strong>Student</strong>. <br/>
+Он наследует от <strong>serializers.ModelSerializer</strong> и определяет следующие поля: <br/>
+- <strong>name (имя)</strong> <br>
+- <strong>age (возраст)</strong> <br>
+- <strong>sex (пол)</strong> <br>
+- <strong>student_class (класс)</strong> <br>
+<br><br></p>
+<h2 id="showstatlessonserializer"><em>ShowStatlessonSerializer</em></h2>
+<p><br/></p>
+<p>Класс <strong>ShowStatlessonSerializer</strong> является сериалайзером для модели <strong>Lesson</strong>. <br/>
+Он наследует от <strong>serializers.ModelSerializer</strong> и определяет следующие поля: <br/>
+- <strong>id</strong> <br/>
+- <strong>name (название)</strong> <br>
+- <strong>students (обучающиеся)</strong> <br>
+<br><br></p>
+<h2 id="studentserializer_1"><em>StudentSerializer</em></h2>
+<p><br/></p>
+<p>Класс <strong>ClassSerializer</strong> является сериалайзером для модели <strong>Class</strong>. <br/>
+Он наследует от <strong>serializers.ModelSerializer</strong> и определяет следующие поля: <br/>
+- <strong>letter (буква)</strong> <br>
+- <strong>year (год)</strong>
+<br><br></p>
+<h2 id="boysandgirlsserializer"><em>BoysAndGirlsSerializer</em></h2>
+<p><br/></p>
+<p>Класс <strong>BoysAndGirlsSerializer</strong> является сериалайзером для модели <strong>Class</strong>. <br/>
+Он наследует от <strong>serializers.ModelSerializer</strong> и определяет следующие поля: <br/>
+- <strong>id</strong> <br/>
+- <strong>letter (буква)</strong> <br>
+- <strong>year (год)</strong>
+- <strong>boys</strong>
+- <strong>girls</strong>
+<br><br></p>
+<h2 id="scheduleserializer"><em>ScheduleSerializer</em></h2>
+<p><br/></p>
+<p>Класс <strong>ScheduleSerializer</strong> является сериалайзером для модели <strong>Schedule</strong>. <br/>
+Он наследует от <strong>serializers.ModelSerializer</strong> и определяет следующие поля: <br/>
+- <strong>day (день)</strong> <br>
+- <strong>base</strong> <br>
+- <strong>num_lesson (номер урока)</strong> <br>
+- <strong>student_class (класс)</strong> <br>
+- <strong>room (аудитория)</strong> <br>
+- <strong>lesson_teacher (класс)</strong> <br>
+<br><br></p>
+<h2 id="findscheduleserializer"><em>FindScheduleSerializer</em></h2>
+<p><br/></p>
+<p>Класс <strong>FindScheduleSerializer</strong> является сериалайзером для модели <strong>Schedule</strong>. <br/>
+Он наследует от <strong>serializers.ModelSerializer</strong> и определяет следующие поля: <br/>
+- <strong>id</strong> <br/>
+- <strong>day (день)</strong> <br>
+- <strong>num_lesson (номер урока)</strong> <br>
+- <strong>room (аудитория)</strong> <br>
+<br><br></p>
+<h2 id="showscheduleserializer"><em>ShowScheduleSerializer</em></h2>
+<p><br/></p>
+<p>Класс <strong>ShowScheduleSerializer</strong> является сериалайзером для модели <strong>ShowScheduleSerializer</strong>. <br/>
+Он наследует от <strong>serializers.ModelSerializer</strong> и определяет следующие поля: <br/>
+- <strong>id</strong> <br/>
+- <strong>day (день)</strong> <br>
+- <strong>num_lesson (номер урока):</strong> <br>
+- <strong>room (аудитория)</strong> <br>
+- <strong>student_class (класс)</strong> <br>
+- <strong>lesson (название)</strong> <br>
+- <strong>teacher (имя)</strong> <br>
+<br><br></p>
+<h2 id="registrationserializer"><em>RegistrationSerializer</em></h2>
+<p><br/></p>
+<p>Класс <strong>RegistrationSerializer</strong> является сериалайзером для модели <strong>User</strong>. <br/>
+Он наследует от <strong>serializers.ModelSerializer</strong> и определяет следующие поля: <br/>
+- <strong>username</strong> <br/>
+- <strong>password</strong> <br>
+- <strong>password2</strong> <br>
+<br><br></p>
+<h2 id="loginserializer"><em>LoginSerializer</em></h2>
+<p><br/></p>
+<p>Класс <strong>LoginSerializer</strong> является сериалайзером для модели <strong>User</strong>. <br/>
+Он наследует от <strong>serializers.ModelSerializer</strong> и определяет следующие поля: <br/>
+- <strong>username</strong> <br/>
+- <strong>password</strong> <br>
+<br><br></p>
+<h2 id="loginserializer_1"><em>LoginSerializer</em></h2>
+<p><br/></p>
+<p>Класс <strong>LoginSerializer</strong> является сериалайзером для модели <strong>User</strong>. <br/>
+Он наследует от <strong>serializers.ModelSerializer</strong>
+<br><br></p>
+<h2 id="passwordchangeserializer"><em>PasswordChangeSerializer</em></h2>
+<p><br/></p>
+<p>Класс <strong>PasswordChangeSerializer</strong> является сериалайзером для модели <strong>User</strong>. <br/>
+Он наследует от <strong>serializers.ModelSerializer</strong> и определяет следующие поля: <br/>
+- <strong>current_password</strong> <br/>
+- <strong>new_password</strong> <br>
+<br><br></p>
+<h1 id="_3">Роутер</h1>
+<hr />
+<p><br/></p>
+<h2 id="schoolurlsry">school/urls.ry</h2>
+<p><br/></p>
+<pre><code class="language-python">from django.contrib import admin
+from django.urls import path, re_path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('main/', include('app.urls')),
+]
+</code></pre>
+<p><br/></p>
+<h2 id="appurlsry">app/urls.ry</h2>
+<p><br/></p>
+<pre><code class="language-python">from rest_framework import routers
+from django.urls import path, include
+from . import views
+
+router = routers.SimpleRouter()
+
+router.register('rooms', viewset=views.RoomViewSet)
+router.register('teachers', viewset=views.TeacherViewSet)
+router.register('lessons', viewset=views.LessonViewSet)
+router.register('teachers-of', viewset=views.TeacherOfViewSet)
+router.register('students', viewset=views.StudentViewSet)
+router.register('classes', viewset=views.ClassViewSet)
+router.register('schedule', viewset=views.ScheduleViewSet)
+router.register('marks', viewset=views.MarkViewSet)
+
+urlpatterns = [
+    path('register/', views.RegistrationView.as_view(), name='register'),
+    path('login/', views.LoginView.as_view(), name='login'),
+    path('logout/', views.LogoutView.as_view(), name='logout'),
+    path('change-password/&lt;int:pk&gt;/', views.ChangePasswordView.as_view(), name='change-password'),
+
+    path('', include(router.urls)),
+]
+
+</code></pre>
+<p><br/></p>
+<h1 id="_4">Эндпоинты</h1>
+<hr />
+<p><br/></p>
+<h2 id="_5"><em>Регистрация</em></h2>
+<p><br/></p>
+<p>-<strong>Эндпойнт:</strong> /main/register/ <br/>
+-<strong>Метод:</strong> POST <br/>
+-<strong>Описание:</strong> Регистрация пользователя<br/>
+<br/></p>
+<h2 id="_6"><em>Логин</em></h2>
+<p><br/></p>
+<p>-<strong>Эндпойнт:</strong> /main/login/ <br/>
+-<strong>Метод:</strong> POST <br/>
+-<strong>Описание:</strong> Вход в систему<br/>
+<br/></p>
+<h2 id="_7"><em>Логаут</em></h2>
+<p><br/></p>
+<p>-<strong>Эндпойнт:</strong> /main/logout/ <br/>
+-<strong>Метод:</strong> POST <br/>
+-<strong>Описание:</strong> Выход из системы<br/>
+<br/></p>
+<h2 id="_8"><em>Аудитории</em></h2>
+<p><br/></p>
+<p>-<strong>Эндпойнт:</strong> /main/rooms/ <br/>
+-<strong>Метод:</strong> GET <br/>
+-<strong>Описание:</strong> Получить все аудитории <br/>
+<br/></p>
+<h2 id="_9"><em>Обычные аудитории</em></h2>
+<p><br/></p>
+<p>-<strong>Эндпойнт:</strong> /main/rooms/count-base/ <br/>
+-<strong>Метод:</strong> GET <br/>
+-<strong>Описание:</strong> Получить все обычные аудитории <br/>
+<br/></p>
+<h2 id="_10"><em>Специализированные аудитории</em></h2>
+<p><br/></p>
+<p>-<strong>Эндпойнт:</strong> /main/rooms/count_specific/ <br/>
+-<strong>Метод:</strong> GET <br/>
+-<strong>Описание:</strong> Получить все специализированные аудитории <br/>
+<br/></p>
+<h2 id="_11"><em>Учителя</em></h2>
+<p><br/></p>
+<p>-<strong>Эндпойнт:</strong> /main/teachers/ <br/>
+-<strong>Метод:</strong> GET <br/>
+-<strong>Описание:</strong> Получить всех учителей <br/>
+<br/></p>
+<h2 id="_12"><em>Занятия</em></h2>
+<p><br/></p>
+<p>-<strong>Эндпойнт:</strong> /main/lessons/ <br/>
+-<strong>Метод:</strong> GET <br/>
+-<strong>Описание:</strong> Получить все занятия <br/>
+<br/></p>
+<h2 id="_13"><em>Подсчет учителей урока</em></h2>
+<p><br/></p>
+<p>-<strong>Эндпойнт:</strong> /main/lessons/how_many_teachers/ <br/>
+-<strong>Метод:</strong> GET <br/>
+-<strong>Описание:</strong> Получить количество учителей ведущих предмет <br/>
+<br/></p>
+<h2 id="-"><em>Учитель-занятие</em></h2>
+<p><br/></p>
+<p>-<strong>Эндпойнт:</strong> /main/teachers-of/ <br/>
+-<strong>Метод:</strong> GET <br/>
+-<strong>Описание:</strong> Получить все пары учитель-предмет <br/>
+<br/></p>
+<h2 id="_14"><em>Обучающиеся</em></h2>
+<p><br/></p>
+<p>-<strong>Эндпойнт:</strong> /main/students/ <br/>
+-<strong>Метод:</strong> GET <br/>
+-<strong>Описание:</strong> Получить всех обучающихся <br/>
+<br/></p>
+<h2 id="_15"><em>Классы</em></h2>
+<p><br/></p>
+<p>-<strong>Эндпойнт:</strong> /main/classes/ <br/>
+-<strong>Метод:</strong> GET <br/>
+-<strong>Описание:</strong> Получить все классы <br/>
+<br/></p>
+<h2 id="_16"><em>Количество мальчиков и девочек в классе</em></h2>
+<p><br/></p>
+<p>-<strong>Эндпойнт:</strong> /main/classes/*/count_boys_and_girls/ <br/>
+-<strong>Метод:</strong> GET <br/>
+-<strong>Описание:</strong> Получить мальчиков и девочек в классе * <br/>
+<br/></p>
+<h2 id="_17"><em>Все обучающихся в классе</em></h2>
+<p><br/></p>
+<p>-<strong>Эндпойнт:</strong> /classes/*/show_students/ <br/>
+-<strong>Метод:</strong> GET <br/>
+-<strong>Описание:</strong> Получить всех обучающихся в классе * <br/>
+<br/></p>
+<h2 id="_18"><em>Успеваемость класса</em></h2>
+<p><br/></p>
+<p>-<strong>Эндпойнт:</strong> /main/classes/*/statistics/ <br/>
+-<strong>Метод:</strong> GET <br/>
+-<strong>Описание:</strong> Получить успеваемость класса * <br/>
+<br/></p>
+<h2 id="_19"><em>Расписание</em></h2>
+<p><br/></p>
+<p>-<strong>Эндпойнт:</strong> /main/schedule/ <br/>
+-<strong>Метод:</strong> GET <br/>
+-<strong>Описание:</strong> Получить расписание<br/>
+<br/></p>
+<h2 id="_20"><em>Поиск по расписанию</em></h2>
+<p><br/></p>
+<p>-<strong>Эндпойнт:</strong> /main/schedule/find/ <br/>
+-<strong>Метод:</strong> POST <br/>
+-<strong>Описание:</strong> Поиск по расписанию<br/>
+<br/></p>
+<h2 id="_21"><em>Оценки</em></h2>
+<p><br/></p>
+<p>-<strong>Эндпойнт:</strong> /main/marks/ <br/>
+-<strong>Метод:</strong> GET <br/>
+-<strong>Описание:</strong> Получить оценки<br/>
+<br/></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Навигация по странице">
+        <a href="../lab_4/" class="btn btn-neutral float-right" title="lab_4">Вперед <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Собрано в <a href="https://www.mkdocs.org/">MkDocs</a> с использованием <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> от <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Версии">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+      <span><a href="../lab_4/" style="color: #fcfcfc">Вперед &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
